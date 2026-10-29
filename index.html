@@ -300,8 +300,6 @@
             }
         }
 
-        const baseUrl = "https://cdn.jsdelivr.net/gh/naotomori1/angrybirds2@main/"
-
         const filesConfig = [
             { name: "angry.data.unityweb", parts: 6 },
             { name: "angry.wasm.code.unityweb", parts: 2 },
@@ -318,7 +316,7 @@
                 let partName = config.parts > 1 ? config.name + i.toString().padStart(2, '0') : config.name
                 totalFiles++
                 partPromises.push(
-                    fetch(baseUrl + "Build/" + partName)
+                    fetch("Build/" + partName)
                         .then(res => res.arrayBuffer())
                         .then(buf => {
                             loadedFiles++
@@ -347,9 +345,9 @@
         Promise.all(fetchPromises).then(() => {
             document.getElementById('loadingContainer').style.display = 'none'
             let script = document.createElement('script')
-            script.src = baseUrl + "Build/UnityLoader.js"
+            script.src = "Build/UnityLoader.js"
             script.onload = () => {
-                window.unityInstance = UnityLoader.instantiate("unityContainer", baseUrl + "Build/angry.json")
+                window.unityInstance = UnityLoader.instantiate("unityContainer", "Build/angry.json")
             }
             document.body.appendChild(script)
         })
